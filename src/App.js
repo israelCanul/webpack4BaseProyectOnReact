@@ -1,40 +1,39 @@
-import React, { Suspense, Component } from 'react';
+import React, { Suspense, Component } from "react";
 import "./App.css";
-import {hot} from "react-hot-loader";
+import { hot } from "react-hot-loader";
 
-
-const _ = import('lodash').then( _ => {
-  console.log(_.join(['Another', 'module', 'loaded!'], ' qqeqweq'));
-});
-
-const  OtherComponent =  React.lazy(() => import('./print'));
-
-class App extends Component{
-  constructor(props){
+class App extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       cargado: false
-    }
+    };
   }
-  render(){
-    return(
+  render() {
+    return (
       <div className="App">
-        <h1> Hello, World! sssssss</h1>
-        <button ref={e => this.miButton = e}>
-          presiona aquidsss
-        </button>
-        <Suspense fallback={<div>Loading...</div>}>
-          <OtherComponent />
-        </Suspense>
+        <form
+          method="post"
+          encType="multipart/form-data"
+          action="http://localhost:5001/api/files/UploadFiles"
+        >
+          <div className="form-group">
+            <div className="col-md-10">
+              <p>Upload one or more files using this form:</p>
+              <input type="file" name="files" multiple />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-md-10">
+              <input type="submit" value="Upload" />
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
-  componentWillMount(){
-   
-  }
-  componentDidMount(){
-    
-  } 
+  componentWillMount() {}
+  componentDidMount() {}
 }
 
 export default hot(module)(App);

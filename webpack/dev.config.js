@@ -7,14 +7,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = merge(baseConfig, {
   devServer: {
-    contentBase: 'public',
+    contentBase: 'dist',
     port: 3000,
-    publicPath: "http://localhost:3000/dist/",
+    publicPath: "http://localhost:3000/",
     hotOnly: true
   },
   output: {
     path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
+    publicPath: "/",
     chunkFilename: '[name].[chunkhash].js',
     filename: '[name].bundle.[hash].js',
   },
@@ -30,7 +30,7 @@ module.exports = merge(baseConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: 'detail',
-      filename: 'detail.html',
+      filename: 'index.html',
       template: './public/index.html',
       // chunks: ['index'],
       // excludeChunks: ['0','1'],
