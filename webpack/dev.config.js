@@ -23,6 +23,23 @@ module.exports = merge(baseConfig, {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: [
+          {
+            loader: "style-loader" // creates style nodes from JS strings
+          },
+          {
+            loader: "css-loader" // translates CSS into CommonJS
+          },
+          {
+            loader: "sass-loader", // compiles Sass to CSS
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       }
     ]
   },

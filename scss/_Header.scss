@@ -1,0 +1,62 @@
+.header {
+  background: red;
+  height: $headerHeight;
+  &-wrap {
+    position: relative;
+    height: $headerHeight;
+    width: 100%;
+    &-icon {
+      width: $headerAsideIconActive;
+      position: static;
+      height: $headerHeight;
+      background: blue;
+      transition: all #{$speed} ease-out;
+      display: block;
+      float: left;
+      overflow: hidden;
+      a {
+        display: block;
+        height: $headerHeight;
+        span {
+          font-size: 1.3rem;
+          color: white;
+          &.icon-small {
+            display: none;
+          }
+          &.icon-large {
+            display: block;
+            line-height: $headerHeight;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// when the sidebar is active
+body.sidebar-collapse {
+  .header {
+    &-wrap {
+      &-icon {
+        width: $headerAsideIconNonActive;
+        a {
+          span {
+            &.icon-small {
+              display: block;
+              line-height: $headerHeight;
+              text-align: center;
+            }
+            &.icon-large {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// $headerHeight: 52px;
+// $headerAsideIconNonActive: 50px;
+// $headerAsideIconActive: 230px;

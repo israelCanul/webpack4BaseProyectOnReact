@@ -3,8 +3,12 @@ import { hot } from "react-hot-loader";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import routes from "./Routes";
 
+/** SECTIONS */
+import Header from "./SectionsPage/Header";
+
 /** Importando la hoja de estilos Bulma.css */
-import "../node_modules/bulma-start/css/main.css";
+import "../node_modules/bulma/bulma.sass";
+import "../scss/index.scss";
 
 class App extends Component {
   constructor(props) {
@@ -14,10 +18,27 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>adsasd</div>
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))}
+        <div className="App">
+          <Header />
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route} />
+          ))}
+          <footer className="footer">
+            <div className="content has-text-centered">
+              <p>
+                <strong>Narilearsi</strong> by{" "}
+                <a href="https://jgthms.com">Jeremy Thomas</a>. The source code
+                is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+                . The website content is licensed{" "}
+                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  CC BY NC SA 4.0
+                </a>
+                .
+              </p>
+            </div>
+          </footer>
+        </div>
       </Router>
     );
   }
