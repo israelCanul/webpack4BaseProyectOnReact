@@ -1,32 +1,62 @@
 .header {
-  background: red;
+  .navbar-item {
+    padding: 0px 0.75rem;
+  }
+
   height: $headerHeight;
   &-wrap {
     position: relative;
     height: $headerHeight;
     width: 100%;
     &-icon {
-      width: $headerAsideIconActive;
       position: static;
-      height: $headerHeight;
-      background: blue;
+      width: $headerAsideIconActive;
+      float: left;
       transition: all #{$speed} ease-out;
       display: block;
-      float: left;
+
       overflow: hidden;
+      display: none;
+      @include desktop {
+        display: block;
+      }
+
       a {
         display: block;
         height: $headerHeight;
         span {
           font-size: 1.3rem;
-          color: white;
+          color: $Colortext;
+          background: rgba(240, 240, 240, 1);
+          box-sizing: border-box;
           &.icon-small {
             display: none;
           }
           &.icon-large {
             display: block;
-            line-height: $headerHeight;
+            line-height: #{$headerHeight};
             text-align: center;
+          }
+        }
+      }
+    }
+    &-container {
+      .navbar-item.userInfo {
+        figure {
+          cursor: pointer;
+        }
+        .card-user {
+          position: absolute;
+          right: calc(0% + 10px);
+          width: 300px;
+          max-width: 300px;
+          top: 100%;
+          overflow: hidden;
+          border-color: transparent;
+          transition: all #{$speed} ease-out;
+          &.noActive {
+            height: 0px !important;
+            box-shadow: none;
           }
         }
       }

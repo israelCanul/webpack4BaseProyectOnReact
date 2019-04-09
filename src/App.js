@@ -6,9 +6,14 @@ import routes from "./Routes";
 /** SECTIONS */
 import Header from "./SectionsPage/Header";
 
-/** Importando la hoja de estilos Bulma.css */
-import "../node_modules/bulma/bulma.sass";
 import "../scss/index.scss";
+
+// import { initFrame } from "./helpers/UserAdmin";
+// initFrame(); //inicializamos el framework
+const ng = import(/* webpackChunkName: "framework" */ "./helpers/UserAdmin");
+ng.then(res => {
+  res.initFrame();
+});
 
 class App extends Component {
   constructor(props) {
@@ -54,4 +59,5 @@ function RouteWithSubRoutes(route) {
     />
   );
 }
+
 export default hot(module)(App);

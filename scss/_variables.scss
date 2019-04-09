@@ -16,4 +16,7 @@ $widescreen-enabled: true !default;
 $fullhd: 1344px + (2 * $gap) !default;
 $fullhd-enabled: true !default;
 
-$speed: 86ms !default;
+$speed: 300ms !default;
+
+/*** COLORS **/
+$Colortext: rgba(70, 70, 70, 1);

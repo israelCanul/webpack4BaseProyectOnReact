@@ -1,28 +1,45 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 
-const merge = require('webpack-merge');
+const merge = require("webpack-merge");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const baseConfig = require('./base.config.js');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const baseConfig = require("./base.config.js");
 
 module.exports = merge(baseConfig, {
   output: {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/dist/",
-    filename: '[name].bundle.js',
+    filename: "[name].bundle.js"
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', "css-loader"],
+        use: ["style-loader", "css-loader"]
       },
-    ],
+      {
+        test: /\.(sass|scss)$/,
+        use: [
+          {
+            loader: "style-loader" // creates style nodes from JS strings
+          },
+          {
+            loader: "css-loader" // translates CSS into CommonJS
+          },
+          {
+            loader: "sass-loader", // compiles Sass to CSS
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      }
+    ]
   },
-  optimization:{
+  optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: "all"
     },
     minimizer: [
       // we specify a custom UglifyJsPlugin here to get source maps in production
@@ -50,5 +67,5 @@ module.exports = merge(baseConfig, {
     // new webpack.LoaderOptionsPlugin({
     //   minimize: true,
     // }),
-  ],
+  ]
 });
