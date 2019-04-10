@@ -1,6 +1,7 @@
 .header {
   .navbar-item {
-    padding: 0px 0.75rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 
   height: $headerHeight;
@@ -9,14 +10,14 @@
     height: $headerHeight;
     width: 100%;
     &-icon {
-      position: static;
-      width: $headerAsideIconActive;
+      width: $headerAsideIconNonActive;
       float: left;
-      transition: all #{$speed} ease-out;
+      transition: transform #{$speed} ease-in-out, width #{$speed} ease-in-out;
       display: block;
 
       overflow: hidden;
       display: none;
+      position: relative;
       @include desktop {
         display: block;
       }
@@ -24,24 +25,43 @@
       a {
         display: block;
         height: $headerHeight;
+
         span {
           font-size: 1.3rem;
           color: $Colortext;
-          background: rgba(240, 240, 240, 1);
+          background: rgba(250, 250, 250, 1);
           box-sizing: border-box;
           &.icon-small {
-            display: none;
-          }
-          &.icon-large {
             display: block;
             line-height: #{$headerHeight};
             text-align: center;
+          }
+          &.icon-large {
+            display: none;
+            line-height: #{$headerHeight};
+            text-align: center;
+          }
+        }
+        &.navbar-burger {
+          z-index: 10;
+          position: absolute;
+          top: 0px;
+          right: 0;
+          background: rgba(250, 250, 250, 1);
+          span {
+            background-color: rgb(70, 70, 70);
           }
         }
       }
     }
     &-container {
       .navbar-item.userInfo {
+        .buttons {
+          margin: 0px;
+          .button {
+            margin-bottom: 0px;
+          }
+        }
         figure {
           cursor: pointer;
         }
@@ -65,28 +85,32 @@
 }
 
 // when the sidebar is active
-body.sidebar-collapse {
+body.sidebar-open {
   .header {
+    height: $headerHeight;
     &-wrap {
+      position: relative;
+      height: $headerHeight;
+      width: 100%;
       &-icon {
-        width: $headerAsideIconNonActive;
+        width: $headerAsideIconActive;
         a {
           span {
             &.icon-small {
-              display: block;
-              line-height: $headerHeight;
-              text-align: center;
-            }
-            &.icon-large {
               display: none;
             }
+            &.icon-large {
+              display: block;
+            }
           }
+          // &.icon-large {
+          //   display: block;
+          // }
+          // &.icon-small {
+          //   display: none;
+          // }
         }
       }
     }
   }
 }
-
-// $headerHeight: 52px;
-// $headerAsideIconNonActive: 50px;
-// $headerAsideIconActive: 230px;

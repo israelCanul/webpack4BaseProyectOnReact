@@ -1,6 +1,6 @@
 $headerHeight: 52px;
 $headerAsideIconNonActive: 50px;
-$headerAsideIconActive: 230px;
+$headerAsideIconActive: 300px;
 
 // Responsiveness from BULMA
 // The container horizontal gap, which acts as the offset for breakpoints
@@ -16,7 +16,7 @@ $widescreen-enabled: true !default;
 $fullhd: 1344px + (2 * $gap) !default;
 $fullhd-enabled: true !default;
 
-$speed: 300ms !default;
+$speed: 0.3s !default;
 
 /*** COLORS **/
 $Colortext: rgba(70, 70, 70, 1);

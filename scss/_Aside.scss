@@ -1,0 +1,28 @@
+#MenuPrincipal {
+  overflow: hidden;
+  transition: transform #{$speed} ease-in-out, width #{$speed} ease-in-out;
+  // background: red;
+  position: absolute;
+  height: calc(100% - #{$headerHeight});
+  top: $headerHeight;
+  left: 0px;
+  // width: $headerAsideIconActive;
+  width: $headerAsideIconActive;
+  transform: translate(-#{$headerAsideIconActive}, 0);
+  @include desktop {
+    transform: translate(
+      -#{$headerAsideIconActive - $headerAsideIconNonActive},
+      0
+    );
+  }
+}
+
+body.sidebar-open {
+  #MenuPrincipal {
+    transition: transform #{$speed} ease-in-out, width #{$speed} ease-in-out;
+    transform: translate(0px, 0);
+    @include desktop {
+      transform: translate(0, 0);
+    }
+  }
+}

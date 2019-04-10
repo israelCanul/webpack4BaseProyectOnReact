@@ -4,19 +4,34 @@ const UserInfoComponent = React.lazy(() =>
   import("./../Modules/header/UserInfo")
 );
 
-class About extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
     return (
-      <header className="header">
+      <header ref="header" className="header">
         <div className="header-wrap">
           <div className="header-wrap-icon">
-            <a href="#" onClick={this.toggleSideBar.bind(this)}>
+            <a
+              href="#"
+              className="icon-large"
+              onClick={this.toggleSideBar.bind(this)}
+            >
               <span className="icon-large">Royal Resorts</span>
               <span className="icon-small">RR</span>
+            </a>
+            <a
+              onClick={this.toggleSideBar.bind(this)}
+              role="button"
+              className="navbar-burger icon-small"
+              aria-label="menu"
+              aria-expanded="false"
+            >
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
             </a>
           </div>
           <div className="header-wrap-container">
@@ -30,6 +45,7 @@ class About extends Component {
                   <img src="https://www.royalresorts.com/wp-content/uploads/2016/01/Royal-Resorts-Logo.png" />
                 </a>
                 <a
+                  onClick={this.toggleSideBar.bind(this)}
                   role="button"
                   className="navbar-burger burger"
                   aria-label="menu"
@@ -56,25 +72,17 @@ class About extends Component {
   }
   toggleSideBar(e) {
     e.preventDefault();
-    let body = document.getElementsByTagName("body")[0];
-    let newClases = "";
-    let thereisidebarcollapse = false;
-    Object.keys(body.classList).map(id => {
-      if (body.classList[id] == "sidebar-collapse") {
-        thereisidebarcollapse = true;
-      } else {
-        newClases += body.classList[id] + " ";
-      }
-    });
-
-    if (thereisidebarcollapse == false) {
-      document.getElementsByTagName("body")[0].className += "sidebar-collapse ";
-    } else {
-      document.getElementsByTagName("body")[0].className = newClases;
-    }
+    // window.nRoyal.toggleClass(
+    //   document.getElementsByTagName("body")[0],
+    //   "sidebar-collapse"
+    // );
+    window.nRoyal.toggleClass(
+      document.getElementsByTagName("body")[0],
+      "sidebar-open"
+    );
   }
   componentWillMount() {}
   componentDidMount() {}
 }
 
-export default About;
+export default Header;

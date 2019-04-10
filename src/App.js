@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import routes from "./Routes";
+import { BrowserRouter as Router } from "react-router-dom";
 
 /** SECTIONS */
 import Header from "./SectionsPage/Header";
+import Footer from "./SectionsPage/footer";
+import Aside from "./SectionsPage/AsideMenu";
+import Wrapper from "./SectionsPage/Wrapper";
 
 import "../scss/index.scss";
 
@@ -19,45 +21,50 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
   render() {
     return (
       <Router>
         <div className="App">
-          <Header />
-          {routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route} />
-          ))}
-          <footer className="footer">
-            <div className="content has-text-centered">
-              <p>
-                <strong>Narilearsi</strong> by{" "}
-                <a href="https://jgthms.com">Jeremy Thomas</a>. The source code
-                is licensed
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
-                . The website content is licensed{" "}
-                <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
-                  CC BY NC SA 4.0
-                </a>
-                .
-              </p>
-            </div>
-          </footer>
+          <Header ref={ref => (this.Header = ref)} />
+          <Wrapper ref={ref => (this.Wrapper = ref)} />
+          <Aside />
+          <Footer ref={ref => (this.Footer = ref)} id="footer" />
         </div>
       </Router>
     );
   }
-}
-function RouteWithSubRoutes(route) {
-  return (
-    <Route
-      path={route.path}
-      render={props => (
-        // pass the sub-routes down to keep nesting
-        <route.component {...props} routes={route.routes} />
-      )}
-    />
-  );
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener("resize", this.updateDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions);
+  }
+  updateDimensions() {
+    var hH = 0,
+      hF = 0;
+    if (this.Header != null) {
+      hH = this.Header.refs.header.clientHeight;
+    }
+    if (this.Footer != null) {
+      hF = this.Footer.refs.footer.clientHeight;
+    }
+    this.Wrapper.refs.content.style.height =
+      parseInt(parseInt(window.innerHeight) - parseInt(hH) - parseInt(hF)) +
+      "px";
+  }
 }
 
 export default hot(module)(App);
+
+// var heightHeader = document.getElementById("header");
+// var heightFooter = document.getElementById("footer");
+// var documentHeigth = window.innerHeight;
+// if (heightHeader != null) {
+//   console.log(heightHeader.clientHeight);
+// }
+// if (heightFooter != null) {
+//   console.log(heightFooter.clientHeight);
+// }

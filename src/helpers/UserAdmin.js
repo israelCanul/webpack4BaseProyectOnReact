@@ -22,14 +22,10 @@ export function initFrame() {
       }
       return "";
     },
-    setCookieForm: (
-      cname,
-      cvalue,
-      expiresDate = "expires=" + d.toUTCString()
-    ) => {
+    setCookieForm: (cname, cvalue) => {
       var d = new Date();
       d.setTime(d.getTime() + 10 * 60 * 1000);
-      var expires = expiresDate;
+      var expires = "expires=" + d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     },
     toggleClass: (obj, clase) => {

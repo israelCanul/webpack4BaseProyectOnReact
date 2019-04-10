@@ -9,7 +9,7 @@ class UserInfoItem extends Component {
     this.toggleCardUser = this.toggleCardUser.bind(this);
   }
   componentDidMount() {
-    // getLodash().then(res => {});
+    getLodash().then(res => {});
     this.setState({ heightCardUserInfo: this.cardUser.clientHeight });
     this.cardUser.style.height = this.cardUser.clientHeight + "px";
     this.cardUser.className = this.cardUser.className + " noActive";
@@ -69,8 +69,8 @@ class UserInfoItem extends Component {
   }
 }
 
-// const getLodash = () => {
-//   return import(/* webpackChunkName: "lodash" */ "lodash");
-// };
+const getLodash = () => {
+  return import(/* webpackChunkName: "lodash" */ "lodash");
+};
 
 export default UserInfoItem;

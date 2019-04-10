@@ -9,8 +9,9 @@ const baseConfig = require("./base.config.js");
 module.exports = merge(baseConfig, {
   output: {
     path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
-    filename: "[name].bundle.js"
+    publicPath: "/",
+    chunkFilename: "[name].[chunkhash].js",
+    filename: "[name].bundle.[hash].js"
   },
   module: {
     rules: [
