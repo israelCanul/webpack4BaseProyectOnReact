@@ -36,7 +36,7 @@
           transition: background #{$speed} ease-in-out,
             height #{$speed} ease-in-out, width #{$speed} ease-in-out,
             margin #{$speed} ease-in-out;
-          background: rgba(50, 115, 220, 0.1);
+          background: rgba(50, 115, 220, 0.05);
           box-shadow: 1px 1px 1px 0px rgb(230, 230, 230);
           &:hover {
             border-left: 4px solid rgb(50, 115, 220);
@@ -82,7 +82,6 @@ body.sidebar-open {
             justify-content: center;
             align-items: center;
             padding: 0.5em 0px;
-            background: rgba(50, 115, 220, 0.1);
             box-shadow: 1px 1px 1px 0px rgb(230, 230, 230);
             &:hover {
               border-left: 4px solid rgb(50, 115, 220);
