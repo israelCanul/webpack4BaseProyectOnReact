@@ -55,6 +55,9 @@
       }
     }
     &-container {
+      .navbar {
+        box-shadow: 1px 1px 1px -1px rgba(220, 220, 220, 1);
+      }
       .navbar-item.userInfo {
         .buttons {
           margin: 0px;

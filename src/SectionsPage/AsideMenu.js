@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ItemMenu from "../Modules/aside/itemMenu";
 
 class Aside extends Component {
   constructor(props) {
@@ -8,54 +9,41 @@ class Aside extends Component {
   render() {
     return (
       <aside className="menu " id="MenuPrincipal">
+        <div className="card user">
+          <div className="card-content">
+            <div className="media">
+              <div className="media-left">
+                <figure className="image is-48x48">
+                  <img
+                    src="https://bulma.io/images/placeholders/96x96.png"
+                    alt="Placeholder image"
+                  />
+                </figure>
+              </div>
+              <div className="media-content">
+                <p className="title is-4">John Smith</p>
+                <p className="subtitle is-6">@johnsmith</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p className="menu-label">Administration </p>
+        <ul className="menu-list">
+          <li>
+            <ItemMenu text="Contacts" textIcon="fas fa-address-book" />
+          </li>
+          <li>
+            <ItemMenu text="Sections" textIcon="fab fa-microsoft" />
+          </li>
+        </ul>
         <p className="menu-label">General</p>
         <ul className="menu-list">
           <li>
-            <a>Dashboard</a>
+            <ItemMenu text="Pages" textIcon="far fa-file-alt" />
           </li>
           <li>
-            <a>Customers</a>
-          </li>
-        </ul>
-        <p className="menu-label">Administration</p>
-        <ul className="menu-list">
-          <li>
-            <a>Team Settings</a>
-          </li>
-          <li>
-            <a className="is-active">Manage Your Team</a>
-            <ul>
-              <li>
-                <a>Members</a>
-              </li>
-              <li>
-                <a>Plugins</a>
-              </li>
-              <li>
-                <a>Add a member</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a>Invitations</a>
-          </li>
-          <li>
-            <a>Cloud Storage Environment Settings</a>
-          </li>
-          <li>
-            <a>Authentication</a>
-          </li>
-        </ul>
-        <p className="menu-label">Transactions</p>
-        <ul className="menu-list">
-          <li>
-            <a>Payments</a>
-          </li>
-          <li>
-            <a>Transfers</a>
-          </li>
-          <li>
-            <a>Balance</a>
+            <ItemMenu text="Gallery" textIcon="far fa-images" />
           </li>
         </ul>
       </aside>
