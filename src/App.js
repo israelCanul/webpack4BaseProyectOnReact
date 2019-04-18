@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { hot } from "react-hot-loader";
 import { BrowserRouter as Router } from "react-router-dom";
 
 /** SECTIONS */
@@ -8,10 +7,12 @@ import Footer from "./SectionsPage/footer";
 import Aside from "./SectionsPage/AsideMenu";
 import Wrapper from "./SectionsPage/Wrapper";
 
+/** REDUX */
+import { fetchUser } from "./actions";
+import { connect } from "react-redux";
+
 import "../scss/index.scss";
 
-// import { initFrame } from "./helpers/UserAdmin";
-// initFrame(); //inicializamos el framework
 const ng = import(/* webpackChunkName: "framework" */ "./helpers/UserAdmin");
 ng.then(res => {
   res.initFrame();
@@ -36,6 +37,7 @@ class App extends Component {
     );
   }
   componentDidMount() {
+    this.props.fetchUser();
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
   }
@@ -57,7 +59,10 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App);
+export default connect(
+  null,
+  { fetchUser }
+)(App);
 
 // var heightHeader = document.getElementById("header");
 // var heightFooter = document.getElementById("footer");

@@ -2,9 +2,10 @@ const webpack = require("webpack");
 
 const merge = require("webpack-merge");
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var HtmlWebpackPlugin = require("html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const baseConfig = require("./base.config.js");
+var config = require("../config");
 
 module.exports = merge(baseConfig, {
   output: {
@@ -40,7 +41,7 @@ module.exports = merge(baseConfig, {
   },
   optimization: {
     splitChunks: {
-      chunks: "all"
+      chunks: "async"
     },
     minimizer: [
       // we specify a custom UglifyJsPlugin here to get source maps in production
@@ -57,16 +58,16 @@ module.exports = merge(baseConfig, {
     ]
   },
   plugins: [
-    // Extract imported CSS into own file
-    //new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
-    // Minify JS
-    // new UglifyJsPlugin({
-    //   sourceMap: false,
-    //   compress: true,
-    // }),
-    // Minify CSS
-    // new webpack.LoaderOptionsPlugin({
-    //   minimize: true,
-    // }),
+    new webpack.DefinePlugin({
+      "process.env": config.build.env
+    }),
+    new HtmlWebpackPlugin({
+      title: "detail",
+      filename: "index.html",
+      template: "./public/index.html",
+      // chunks: ['index'],
+      // excludeChunks: ['0','1'],
+      inject: "body"
+    })
   ]
 });

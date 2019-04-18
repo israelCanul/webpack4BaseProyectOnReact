@@ -3,6 +3,7 @@ const merge = require("webpack-merge");
 const baseConfig = require("./base.config.js");
 const path = require("path");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var config = require("../config");
 
 module.exports = merge(baseConfig, {
   devServer: {
@@ -44,6 +45,9 @@ module.exports = merge(baseConfig, {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "process.env": config.dev.env
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       title: "detail",

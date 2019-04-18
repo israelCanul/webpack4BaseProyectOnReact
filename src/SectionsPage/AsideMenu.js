@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import ItemMenu from "../Modules/aside/itemMenu";
 
 class Aside extends Component {
@@ -9,25 +10,28 @@ class Aside extends Component {
   render() {
     return (
       <aside className="menu " id="MenuPrincipal">
-        <div className="card user">
-          <div className="card-content">
-            <div className="media">
-              <div className="media-left">
-                <figure className="image is-48x48">
-                  <img
-                    src="https://bulma.io/images/placeholders/96x96.png"
-                    alt="Placeholder image"
-                  />
-                </figure>
-              </div>
-              <div className="media-content">
-                <p className="title is-4">John Smith</p>
-                <p className="subtitle is-6">@johnsmith</p>
+        {this.props.user.logged == true && (
+          <div className="card user">
+            <div className="card-content">
+              <div className="media">
+                <div className="media-left">
+                  <figure className="image is-48x48">
+                    <img
+                      src="https://bulma.io/images/placeholders/96x96.png"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                </div>
+                <div className="media-content">
+                  <p className="title is-4">{this.props.user.info.name}</p>
+                  <p className="subtitle is-6">
+                    {this.props.user.info.twitter}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
+        )}
         <p className="menu-label">Administration </p>
         <ul className="menu-list">
           <li>
@@ -53,4 +57,10 @@ class Aside extends Component {
   componentDidMount() {}
 }
 
-export default Aside;
+const mapStateToProps = state => {
+  return {
+    user: state.users
+  };
+};
+
+export default connect(mapStateToProps)(Aside);
