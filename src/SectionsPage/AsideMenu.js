@@ -10,7 +10,7 @@ class Aside extends Component {
   render() {
     return (
       <aside className="menu " id="MenuPrincipal">
-        {this.props.user.logged == true && (
+        {this.props.user.logged && (
           <div className="card user">
             <div className="card-content">
               <div className="media">
@@ -23,10 +23,8 @@ class Aside extends Component {
                   </figure>
                 </div>
                 <div className="media-content">
-                  <p className="title is-4">{this.props.user.info.name}</p>
-                  <p className="subtitle is-6">
-                    {this.props.user.info.twitter}
-                  </p>
+                  <p className="title is-5">{this.props.user.info.name}</p>
+                  <p className="subtitle is-6">{this.props.user.info.email}</p>
                 </div>
               </div>
             </div>
