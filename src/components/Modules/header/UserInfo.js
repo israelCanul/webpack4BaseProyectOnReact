@@ -20,19 +20,21 @@ class UserInfoItem extends Component {
   render() {
     return (
       <div className="navbar-item is-hoverable userInfo">
-        {window.nRoyal.CheckUserOnCookies() ? (
-          <figure className="image is-32x32 " onClick={this.toggleCardUser}>
-            <img
-              style={{ maxHeight: "32px" }}
-              className="is-rounded"
-              src="https://bulma.io/images/placeholders/128x128.png"
-            />
-          </figure>
-        ) : (
+        {
+          // window.nRoyal.CheckUserOnCookies() ? (
+          // <figure className="image is-32x32 " onClick={this.toggleCardUser}>
+          //   <img
+          //     style={{ maxHeight: "32px" }}
+          //     className="is-rounded"
+          //     src="https://bulma.io/images/placeholders/128x128.png"
+          //   />
+          // </figure>
+          // ) : (
           <div className="buttons">
             <a className="button is-primary">Log in</a>
           </div>
-        )}
+          // )
+        }
         <div className="card card-user" ref={e => (this.cardUser = e)}>
           <header className="card-header">
             <p className="card-header-title">Component</p>

@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from "react";
 // import UserInfo from "../Modules/header/UserInfo";
 const UserInfoComponent = React.lazy(() =>
-  import("./../Modules/header/UserInfo")
+  import("./../Components/Modules/header/UserInfo")
 );
 
 class Header extends Component {
@@ -82,7 +82,9 @@ class Header extends Component {
     );
   }
   componentWillMount() {}
-  componentDidMount() {}
+  componentDidMount() {
+    console.log("cargo");
+  }
 }
 
 export default Header;

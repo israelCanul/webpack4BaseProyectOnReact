@@ -1,5 +1,5 @@
 import { FETCH_USER } from "../actions/index";
-import { log } from "util";
+
 const initialState = {
   logged: false,
   loading: false,
@@ -12,17 +12,13 @@ export const userReducer = (state = initialState, action) => {
     case FETCH_USER:
       {
         var tempState = { ...state };
-        if (action.payload.isLoading) {
-          tempState.loading = true;
-        } else {
-          tempState.loading = false;
-          if (action.payload.status == 200) {
-            tempState.logged = true;
-            tempState.info = action.payload.data;
-          } else {
-            tempState.logged = false;
-          }
-        }
+
+        tempState.logged = true;
+        tempState.info = action.payload.data;
+        action.payload.data.name
+          ? (tempState.logged = true)
+          : (tempState.logged = false);
+
         newState = tempState;
       }
       break;

@@ -1,5 +1,5 @@
-import Home from "./Home";
-import About from "./Home/About";
+import Home from "./components/Home";
+import About from "./components/Home/About";
 
 const Routes = [
   {

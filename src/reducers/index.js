@@ -2,6 +2,7 @@
 import { FETCH_USER } from "../actions/index";
 import { combineReducers } from "redux";
 import { userReducer } from "./userReducer";
+import { loaderReducer } from "./loaderReducer";
 
 const anotherReducer = (selected = null, action) => {
   return selected;
@@ -9,5 +10,6 @@ const anotherReducer = (selected = null, action) => {
 
 export default combineReducers({
   users: userReducer,
-  another: anotherReducer
+  another: anotherReducer,
+  loader: loaderReducer
 });

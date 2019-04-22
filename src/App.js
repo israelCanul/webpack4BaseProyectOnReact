@@ -1,17 +1,18 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+
+import(/* webpackChunkName: "cssIndex" */ "../scss/index.scss");
 
 /** SECTIONS */
 import Header from "./SectionsPage/Header";
 import Footer from "./SectionsPage/footer";
 import Aside from "./SectionsPage/AsideMenu";
+// const Aside = React.lazy(() => import("./SectionsPage/AsideMenu"));
 import Wrapper from "./SectionsPage/Wrapper";
 
 /** REDUX */
 import { fetchUser } from "./actions";
 import { connect } from "react-redux";
-
-import "../scss/index.scss";
 
 const ng = import(/* webpackChunkName: "framework" */ "./helpers/UserAdmin");
 ng.then(res => {
@@ -30,7 +31,9 @@ class App extends Component {
         <div className="App">
           <Header ref={ref => (this.Header = ref)} />
           <Wrapper ref={ref => (this.Wrapper = ref)} />
+          {/* <Suspense> */}
           <Aside />
+          {/* </Suspense> */}
           <Footer ref={ref => (this.Footer = ref)} id="footer" />
         </div>
       </Router>

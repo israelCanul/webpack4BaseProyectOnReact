@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { connect } from "react-redux";
-import ItemMenu from "../Modules/aside/itemMenu";
+import ItemMenu from "../components/Modules/aside/itemMenu";
+
+import(/* webpackChunkName: "cssAside" */ "../../scss/Aside.scss");
 
 class Aside extends Component {
   constructor(props) {
