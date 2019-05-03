@@ -19,8 +19,6 @@ class GlobalLoader extends Component {
     });
   }
   render() {
-    console.log(this.props.loader);
-
     let isOpen = this.props.loader.open === true ? "open" : "";
     return (
       <div id="GlobalLoaderContainer" className={` ${isOpen} `}>

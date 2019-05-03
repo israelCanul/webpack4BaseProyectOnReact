@@ -10,21 +10,21 @@ export const fetchUser = () => {
       payload: { play: true, text: "Fetching User information" }
     });
     const response = await jsonPlaceHolder
-      .get("/userssss/3")
+      .get("/users/3")
       .then(res => {
-        dispatch({ type: FETCH_USER, payload: response });
+        dispatch({ type: FETCH_USER, payload: res });
         setTimeout(() => {
           dispatch({ type: SET_LOADER, payload: { play: false } });
         }, 1000);
       })
       .catch(err => {
-        dispatch({
-          type: FETCH_USER,
-          payload: {
-            data: { name: "Jhon Martinillo", email: "soyhhh@soyJhoni" }
-          }
-        });
-        dispatch({ type: SET_LOADER, payload: { play: false } });
+        // dispatch({
+        //   type: FETCH_USER,
+        //   payload: {
+        //     data: { name: "Jhon Martinillo", email: "soyhhh@soyJhoni" }
+        //   }
+        // });
+        // dispatch({ type: SET_LOADER, payload: { play: false } });
       });
   };
 };

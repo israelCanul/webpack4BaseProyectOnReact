@@ -2,9 +2,23 @@
   width: 100%;
   transition: transform #{$speed} ease-in-out, width #{$speed} ease-in-out;
   background-color: rgba(230, 230, 230, 1);
+  position: relative;
   @include desktop {
     width: calc(100% - #{$headerAsideIconNonActive});
     transform: translate(#{$headerAsideIconNonActive}, 0);
+  }
+
+  .dashboard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .panelWrappers {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Suspense, Component } from "react";
+import ComponentsDefault from "../dashboardComponent";
 
 class Content extends Component {
   constructor(props) {
@@ -10,7 +11,11 @@ class Content extends Component {
   render() {
     return (
       <div className="dashboard">
-        <div>este es mi home y mi div.home</div>
+        <div className="panelWrappers">
+          <ComponentsDefault />
+          <ComponentsDefault />
+          <ComponentsDefault />
+        </div>
       </div>
     );
   }

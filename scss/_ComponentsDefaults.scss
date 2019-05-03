@@ -1,0 +1,25 @@
+$width: 300px;
+
+.Dashboard-Default {
+  max-width: $width;
+  width: $width;
+  height: $width;
+  background-color: white;
+  //   box-shadow: 5px 5px 5px 0px rgba(100, 100, 100, 0.2);
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  float: left;
+  &:hover {
+    cursor: pointer;
+  }
+  .panel-block {
+    height: $width;
+  }
+
+  @include mobile {
+    margin-left: calc(50% - (#{$width} / 2));
+  }
+}
