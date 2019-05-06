@@ -1,0 +1,70 @@
+#formAdmin {
+  .section {
+    @include mobile {
+      padding: 0px;
+    }
+    .panel-block {
+      @include mobile {
+        padding: 1px;
+      }
+    }
+    .card-content {
+      padding: 2px;
+      margin: 5px;
+      padding-bottom: 15px;
+    }
+  }
+  .form-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    @include mobile {
+      padding: 0px !important;
+    }
+    .columns {
+      width: 100%;
+      margin: 0px !important;
+      @include mobile {
+        padding: 0px !important;
+      }
+
+      .column {
+        @include mobile {
+          padding: 0px !important;
+        }
+      }
+    }
+
+    .itemsForm.container {
+      max-width: 100%;
+      width: 100% !important;
+      @include mobile {
+        padding: 0px !important;
+      }
+      /** ITEMS */
+      .itemForm {
+        width: 100%;
+        @include mobile {
+          padding: 0px !important;
+        }
+        &-content {
+          @include mobile {
+            padding: 0px !important;
+          }
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: wrap;
+          &-field {
+            @include mobile {
+              padding: 0px !important;
+            }
+            width: 50%;
+            min-width: 280px;
+          }
+        }
+      }
+    }
+  }
+}

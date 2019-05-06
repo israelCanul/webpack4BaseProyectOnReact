@@ -1,5 +1,6 @@
 import Home from "./components/Home";
 import About from "./components/Home/About";
+import Forms from "./components/Modules/Forms";
 
 const Routes = [
   {
@@ -9,6 +10,10 @@ const Routes = [
   {
     path: "/about",
     component: About
+  },
+  {
+    path: "/forms",
+    component: Forms
   }
 ];
 
