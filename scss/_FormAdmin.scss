@@ -1,4 +1,7 @@
 #formAdmin {
+  .columns {
+    width: 100%;
+  }
   .section {
     @include mobile {
       padding: 0px;
@@ -9,9 +12,22 @@
       }
     }
     .card-content {
-      padding: 2px;
-      margin: 5px;
-      padding-bottom: 15px;
+      margin: 10px 5px 15px 5px;
+      padding: 10px 3px 10px 3px;
+    }
+  }
+  .formConfiguration {
+    .columns {
+      margin: 0.2rem !important;
+      @include mobile {
+        margin: 0rem !important;
+        padding: 2px 0.5rem;
+      }
+      .column {
+        @include mobile {
+          padding: 0.25rem !important;
+        }
+      }
     }
   }
   .form-content {
@@ -27,14 +43,17 @@
       @include mobile {
         padding: 0px !important;
       }
-
       .column {
         @include mobile {
           padding: 0px !important;
         }
+        &.buttonInputs {
+          @include mobile {
+            padding: 5px !important;
+          }
+        }
       }
     }
-
     .itemsForm.container {
       max-width: 100%;
       width: 100% !important;
@@ -42,6 +61,17 @@
         padding: 0px !important;
       }
       /** ITEMS */
+      .itemForm.card {
+        .card-header {
+          justify-content: flex-end;
+          &-title {
+            padding: 0.25rem 0.75rem;
+          }
+          &-icon {
+            padding: 0.25rem;
+          }
+        }
+      }
       .itemForm {
         width: 100%;
         @include mobile {
@@ -62,6 +92,36 @@
             }
             width: 50%;
             min-width: 280px;
+          }
+        }
+
+        &.SelectControl {
+          .options-section {
+            width: 100%;
+            margin: 0px;
+            padding: 1px;
+            @include mobile {
+              border: 1px solid rgba(200, 200, 200, 0.4);
+            }
+            @include tablet {
+              margin: 10px 5px;
+              padding: 5px;
+              //border-radius: 5px;
+            }
+            &-content {
+              @include tablet {
+                border: 1px solid rgba(200, 200, 200, 0.4);
+              }
+            }
+
+            &-header {
+              margin: 0px;
+              .level-left + .level-right {
+                @include mobile {
+                  margin-top: 0.25rem;
+                }
+              }
+            }
           }
         }
       }
