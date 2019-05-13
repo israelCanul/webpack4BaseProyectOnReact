@@ -1,4 +1,21 @@
 #formAdmin {
+  .preview {
+    position: relative;
+    .wrapper-preview {
+      position: absolute;
+      top: 0px;
+      width: 100%;
+      background-color: white;
+      z-index: 10;
+      left: 0;
+      height: 0px;
+      overflow: hidden;
+      &.active {
+        height: auto;
+      }
+    }
+  }
+
   .columns {
     width: 100%;
   }
@@ -9,6 +26,12 @@
     .panel-block {
       @include mobile {
         padding: 1px;
+      }
+      &.submit {
+        justify-content: center;
+        @include mobile {
+          padding: 5px 1px;
+        }
       }
     }
     .card-content {

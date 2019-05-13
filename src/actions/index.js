@@ -4,7 +4,7 @@ export const SET_LOADER = "SET_LOADER";
 
 // Action Creator
 export const fetchUser = () => {
-  return async function(dispatch, getState) {
+  return async function(dispatch) {
     dispatch({
       type: SET_LOADER,
       payload: { play: true, text: "Fetching User information" }

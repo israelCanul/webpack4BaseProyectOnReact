@@ -3,7 +3,9 @@
     transition: all #{$speed} ease-in-out;
     width: calc(100%);
     z-index: 1000;
+    padding: 1rem 1.5rem;
     @include desktop {
+      padding: 1rem 1.5rem;
       width: calc(100% - #{$headerAsideIconNonActive});
       margin-left: $headerAsideIconNonActive;
     }

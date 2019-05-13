@@ -1,6 +1,7 @@
 import Home from "./components/Home";
 import About from "./components/Home/About";
 import Forms from "./components/Modules/Forms";
+import CreateForms from "./components/Modules/Forms/createForm.js";
 
 const Routes = [
   {
@@ -13,7 +14,17 @@ const Routes = [
   },
   {
     path: "/forms",
-    component: Forms
+    component: Forms,
+    routes: [
+      {
+        path: "/forms/createForm",
+        component: CreateForms
+      },
+      {
+        path: "/forms/updateForm/:code",
+        component: CreateForms
+      }
+    ]
   }
 ];
 

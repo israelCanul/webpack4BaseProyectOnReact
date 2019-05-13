@@ -1,7 +1,5 @@
-var axios = null;
-import(/* webpackChunkName: "axios" */ "axios").then(ax => {
-  console.log("====================================");
-  console.log("Axios loaded");
-  console.log("====================================");
-  axios = ax;
+import axios from "axios";
+
+export default axios.create({
+  baseURL: process.env.ROOT_API_ROYAL
 });

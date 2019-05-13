@@ -1,8 +1,10 @@
 import React, { Component, Suspense } from "react";
-import { longStackSupport } from "q";
+
 const ReactJson = React.lazy(() => import("react-json-view"));
 const InputItem = React.lazy(() => import("./formInputItem.js"));
 const SelectItem = React.lazy(() => import("./formSelectItem.js"));
+import { connect } from "react-redux";
+import { setForm } from "../../../actions/formActions.js";
 
 var _ = null;
 const ldash = (async () => {
@@ -17,40 +19,50 @@ const ldash = (async () => {
 class CreateForm extends Component {
   constructor(props) {
     super(props);
+    let randomVar = this.props.match.params.code
+      ? this.props.match.params.code
+      : [...Array(10)].map(i => (~~(Math.random() * 36)).toString(36)).join("");
     this.state = {
+      openDropdown: false,
+      previewActive: false,
       name: "",
-      code: [...Array(10)]
-        .map(i => (~~(Math.random() * 36)).toString(36))
-        .join(""),
+      code: randomVar,
       formItems: [],
       formString: {
         name: "",
-        code: "",
+        code: randomVar,
         formulario: { form: { action: "#", type: "post", title: "Default" } },
         data: []
-      },
-      openDropdown: false
+      }
     };
     this.readFormItems = this.readFormItems.bind(this);
     this.removeInput = this.removeInput.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
+
     this.onBlurButtonAddControl = this.onBlurButtonAddControl.bind(this);
+    this.sendFormToApi = this.sendFormToApi.bind(this);
   }
   componentDidMount() {
     // this.updateFormString();
     //this.setState({ formString: this.state.formString });
+    if (this.props.match.params.code) {
+      console.log("esta es una actualizacion");
+    }
   }
   removeInput(evt) {
-    let newFormString = _.compact(
-      _.remove(this.state.formString.data, function(n, index) {
-        if (index != evt.props.id) {
+    let idFormString = null;
+
+    let newFormItems = _.compact(
+      _.remove(this.state.formItems, function(n, index) {
+        if (evt.props.idInput != n.props.idInput) {
           return n;
+        } else {
+          idFormString = index;
         }
       })
     );
-    let newFormItems = _.compact(
-      _.remove(this.state.formItems, function(n, index) {
-        if (index != evt.props.id) {
+    let newFormString = _.compact(
+      _.remove(this.state.formString.data, function(n, index) {
+        if (index != idFormString) {
           return n;
         }
       })
@@ -68,11 +80,11 @@ class CreateForm extends Component {
       <InputItem
         key={ref}
         remove={this.removeInput}
-        id={newformItems.length}
+        idInput={newformItems.length}
         readItems={this.readFormItems}
       />
     );
-    this.setState({ formItems: newformItems });
+    //this.setState({ formItems: newformItems });
     /*** SE CREA EL DATA  Y SE AGREGA AL JSON  */
     let inputData = {
       input: {
@@ -85,8 +97,12 @@ class CreateForm extends Component {
     let newFormString = this.state.formString;
     newFormString.data.push(inputData);
 
-    this.setState({ formString: { ...newFormString } });
-    this.setState({ openDropdown: false }); // cerramos el dropdown
+    this.setState({
+      openDropdown: false,
+      formItems: newformItems,
+      formString: { ...newFormString }
+    });
+    //this.setState({  }); // cerramos el dropdown
   }
   addNewSelect(evt) {
     evt.preventDefault();
@@ -96,14 +112,14 @@ class CreateForm extends Component {
       <SelectItem
         key={ref}
         remove={this.removeInput}
-        id={newformItems.length}
+        idInput={newformItems.length}
         readItems={this.readFormItems}
       />
     );
-    this.setState({ formItems: newformItems });
+    //this.setState({});
     /*** SE CREA EL DATA  Y SE AGREGA AL JSON  */
     let inputData = {
-      Select: {
+      select: {
         label: "",
         value: "",
         options: []
@@ -112,13 +128,24 @@ class CreateForm extends Component {
     let newFormString = this.state.formString;
     newFormString.data.push(inputData);
 
-    this.setState({ formString: { ...newFormString } });
-    this.setState({ openDropdown: false }); // cerramos el dropdown
+    this.setState({
+      openDropdown: false,
+      formItems: newformItems,
+      formString: { ...newFormString }
+    });
+    // this.setState({  }); // cerramos el dropdown
   }
   readFormItems(a) {
     let newFormString = this.state.formString;
-    newFormString.data[a.props.id] = a.state;
-    this.setState({ formString: { ...newFormString } });
+    let key = null;
+    // console.log(newFormString);
+    Object.keys(newFormString.data[a.props.idInput]).map(keyID => {
+      key = keyID;
+    });
+    if (key != null) {
+      newFormString.data[a.props.idInput][key] = a.state;
+      this.setState({ formString: { ...newFormString } });
+    }
   }
   changeTypeForm(evt) {
     this.setState({
@@ -147,6 +174,24 @@ class CreateForm extends Component {
       that.setState({ openDropdown: false });
     }, 500);
   }
+  togglePreviewActive(evt) {
+    if (this.state.previewActive == true) {
+      this.setState({ previewActive: false });
+    } else {
+      this.setState({ previewActive: true });
+    }
+  }
+  sendFormToApi(evt) {
+    let objForm = {
+      name: this.state.formString.name,
+      code: this.state.formString.code,
+      formulario: {
+        ...this.state.formString.formulario,
+        data: this.state.formString.data
+      }
+    };
+    this.props.setForm(objForm);
+  }
   render() {
     return (
       <div className="section">
@@ -158,15 +203,30 @@ class CreateForm extends Component {
                   <p>New Form </p>
                 </div>
                 <div className="level-right">
+                  <a
+                    onClick={this.togglePreviewActive.bind(this)}
+                    className={`button ${this.state.previewActive == true &&
+                      "is-active"}`}
+                  >
+                    <span>Preview</span>
+                    <span className="icon">
+                      {this.state.previewActive == true ? (
+                        <i class="fas fa-eye-slash has-text-danger " />
+                      ) : (
+                        <i className="fas fa-eye has-text-primary" />
+                      )}
+                    </span>
+                  </a>
                   <div
                     id="inputsDropdown"
-                    className={`dropdown ${this.state.openDropdown == true &&
-                      "is-active"}`}
+                    className={`dropdown ${
+                      this.state.openDropdown == true ? "is-active" : ""
+                    }`}
                   >
                     <div className="dropdown-trigger">
                       <button
-                        ref={e => (this.buttonAddControl = e)}
-                        onClick={this.toggleDropdown}
+                        // ref={e => (this.buttonAddControl = e)}
+                        onClick={this.toggleDropdown.bind(this)}
                         onBlur={this.onBlurButtonAddControl}
                         className="button"
                         aria-haspopup="true"
@@ -205,7 +265,16 @@ class CreateForm extends Component {
                 </div>
               </div>
             </div>
-
+            <div className="panel-block preview">
+              <div
+                className={`wrapper-preview ${this.state.previewActive ==
+                  true && "active"}`}
+              >
+                <Suspense fallback={<div>Loading...</div>}>
+                  <ReactJson src={this.state.formString}> </ReactJson>
+                </Suspense>
+              </div>
+            </div>
             <div className="panel-block formConfiguration">
               <div className="columns has-background-light">
                 <div className="column ">
@@ -220,6 +289,12 @@ class CreateForm extends Component {
                           this.setState({
                             formString: {
                               ...this.state.formString,
+                              formulario: {
+                                form: {
+                                  ...this.state.formulario.form,
+                                  title: e.target.value
+                                }
+                              },
                               name: e.target.value
                             }
                           });
@@ -301,30 +376,6 @@ class CreateForm extends Component {
                 <div className="columns">
                   <div className="column">
                     <div className="panel">
-                      {/* <div className="panel-heading has-background-white">
-                        <div className="columns">
-                          <div className="column buttonInputs">
-                            <a href="" className="button is-info">
-                              <span>Add New Input</span>
-                              <span className="icon">
-                                <i className="far fa-plus-square" />
-                              </span>
-                            </a>
-                          </div>
-                          <div className="column buttonInputs">
-                            <a
-                              href=""
-                              onClick={this.addNewSelect.bind(this)}
-                              className="button is-info"
-                            >
-                              <span>Add New Select</span>
-                              <span className="icon">
-                                <i className="far fa-plus-square" />
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                      </div> */}
                       <div
                         className="panel-block"
                         style={{ borderWidth: "0px" }}
@@ -338,16 +389,27 @@ class CreateForm extends Component {
                 </div>
               </div>
             </div>
-            {/* <div className="panel-block">
-              <Suspense fallback={<div>Loading...</div>}>
-                <ReactJson src={this.state.formString}> </ReactJson>
-              </Suspense>
-            </div> */}
+            <div className="panel-block submit">
+              <a
+                onClick={this.sendFormToApi}
+                className="button is-success is-hoverable"
+                href="#"
+              >
+                Guardar
+              </a>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 }
+function mapStateToProps(state) {
+  return { forms: state.forms };
+}
+// export default CreateForm;
 
-export default CreateForm;
+export default connect(
+  mapStateToProps,
+  { setForm }
+)(CreateForm);

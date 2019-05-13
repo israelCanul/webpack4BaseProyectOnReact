@@ -1,8 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import(/* webpackChunkName: "cssIndex" */ "../scss/index.scss");
-
 /** SECTIONS */
 import Header from "./SectionsPage/Header";
 import Footer from "./SectionsPage/footer";
@@ -56,6 +54,7 @@ class App extends Component {
     if (this.Footer != null) {
       hF = this.Footer.refs.footer.clientHeight;
     }
+
     this.Wrapper.refs.content.style.height =
       parseInt(parseInt(window.innerHeight) - parseInt(hH) - parseInt(hF)) +
       "px";

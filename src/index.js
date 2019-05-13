@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 import reducers from "./reducers";
 
 import "../scss/Loader.scss";
-
+import(/* webpackChunkName: "cssIndex" */ "../scss/index.scss");
 //Sections
 import Loader from "./SectionsPage/Loading";
 

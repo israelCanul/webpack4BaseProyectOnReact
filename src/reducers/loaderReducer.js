@@ -12,13 +12,13 @@ export const loaderReducer = (state = initialState, action) => {
     case SET_LOADER:
       {
         if (action.payload.play == true) {
-          newState = { ...state, pause: true, open: true };
+          newState = { ...newState, pause: true, open: true };
           if (action.payload.text) {
             newState = { ...newState, text: action.payload.text };
           }
         } else {
           newState = {
-            ...state,
+            ...newState,
             pause: false,
             open: false,
             text: "Loading ..."
