@@ -1,7 +1,7 @@
 import { SET_FORM, GET_FORM } from "../actions/formActions.js";
 
 const initialState = {
-  form: "",
+  form: null,
   peticion: { code: 0, result: "" }
 };
 
@@ -25,11 +25,14 @@ export const formReducer = (state = initialState, action) => {
       break;
     case GET_FORM:
       {
+        newState = {
+          ...newState,
+          form: action.payload
+        };
       }
       break;
     default:
       newState = newState;
   }
-  //   newState = { ...newState, pause: true, open: true };
   return newState;
 };

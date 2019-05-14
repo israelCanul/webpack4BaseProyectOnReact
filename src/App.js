@@ -5,6 +5,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./SectionsPage/Header";
 import Footer from "./SectionsPage/footer";
 import Aside from "./SectionsPage/AsideMenu";
+import Notifications from "./SectionsPage/Notifications";
+
 // const Aside = React.lazy(() => import("./SectionsPage/AsideMenu"));
 import Wrapper from "./SectionsPage/Wrapper";
 
@@ -27,11 +29,10 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+          <Notifications />
           <Header ref={ref => (this.Header = ref)} />
           <Wrapper ref={ref => (this.Wrapper = ref)} />
-          {/* <Suspense> */}
           <Aside />
-          {/* </Suspense> */}
           <Footer ref={ref => (this.Footer = ref)} id="footer" />
         </div>
       </Router>

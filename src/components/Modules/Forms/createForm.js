@@ -4,7 +4,7 @@ const ReactJson = React.lazy(() => import("react-json-view"));
 const InputItem = React.lazy(() => import("./formInputItem.js"));
 const SelectItem = React.lazy(() => import("./formSelectItem.js"));
 import { connect } from "react-redux";
-import { setForm } from "../../../actions/formActions.js";
+import { setForm, getForm } from "../../../actions/formActions.js";
 
 var _ = null;
 const ldash = (async () => {
@@ -37,20 +37,52 @@ class CreateForm extends Component {
     };
     this.readFormItems = this.readFormItems.bind(this);
     this.removeInput = this.removeInput.bind(this);
-
     this.onBlurButtonAddControl = this.onBlurButtonAddControl.bind(this);
     this.sendFormToApi = this.sendFormToApi.bind(this);
   }
   componentDidMount() {
+    var that = this;
     // this.updateFormString();
     //this.setState({ formString: this.state.formString });
     if (this.props.match.params.code) {
-      console.log("esta es una actualizacion");
+      var respuesta = this.props.getForm(this.props.match.params.code);
+      respuesta.then(res => {
+        if (this.props.forms.form != null) {
+          console.log(this.props.forms.form);
+          this.setState({
+            formString: {
+              ...this.state.formString,
+              data: this.props.forms.form.data,
+              formulario: {
+                ...this.state.formString.formulario,
+                form: this.props.forms.form.form
+              }
+            }
+          });
+          let newItems = [];
+          this.props.forms.form.data.map((dat, index) => {
+            if (dat.input) {
+              var ref = parseInt(index + 1) + "-Input";
+              newItems.push(
+                <InputItem
+                  key={ref}
+                  remove={that.removeInput}
+                  idInput={index}
+                  readItems={that.readFormItems}
+                />
+              );
+            }
+            if (dat.select) {
+            }
+          });
+
+          this.setState({ formItems: newItems });
+        }
+      });
     }
   }
   removeInput(evt) {
     let idFormString = null;
-
     let newFormItems = _.compact(
       _.remove(this.state.formItems, function(n, index) {
         if (evt.props.idInput != n.props.idInput) {
@@ -84,7 +116,6 @@ class CreateForm extends Component {
         readItems={this.readFormItems}
       />
     );
-    //this.setState({ formItems: newformItems });
     /*** SE CREA EL DATA  Y SE AGREGA AL JSON  */
     let inputData = {
       input: {
@@ -96,13 +127,11 @@ class CreateForm extends Component {
     };
     let newFormString = this.state.formString;
     newFormString.data.push(inputData);
-
     this.setState({
       openDropdown: false,
       formItems: newformItems,
       formString: { ...newFormString }
     });
-    //this.setState({  }); // cerramos el dropdown
   }
   addNewSelect(evt) {
     evt.preventDefault();
@@ -116,7 +145,6 @@ class CreateForm extends Component {
         readItems={this.readFormItems}
       />
     );
-    //this.setState({});
     /*** SE CREA EL DATA  Y SE AGREGA AL JSON  */
     let inputData = {
       select: {
@@ -133,12 +161,10 @@ class CreateForm extends Component {
       formItems: newformItems,
       formString: { ...newFormString }
     });
-    // this.setState({  }); // cerramos el dropdown
   }
   readFormItems(a) {
     let newFormString = this.state.formString;
     let key = null;
-    // console.log(newFormString);
     Object.keys(newFormString.data[a.props.idInput]).map(keyID => {
       key = keyID;
     });
@@ -285,13 +311,14 @@ class CreateForm extends Component {
                     <div className="control field-body">
                       <input
                         className="input"
+                        value={this.state.formString.formulario.form.title}
                         onChange={e => {
                           this.setState({
                             formString: {
                               ...this.state.formString,
                               formulario: {
                                 form: {
-                                  ...this.state.formulario.form,
+                                  ...this.state.formString.formulario.form,
                                   title: e.target.value
                                 }
                               },
@@ -310,7 +337,10 @@ class CreateForm extends Component {
                     </label>
                     <div className=" field-body">
                       <div className="control select">
-                        <select onChange={this.changeTypeForm.bind(this)}>
+                        <select
+                          value={this.state.formString.formulario.form.type}
+                          onChange={this.changeTypeForm.bind(this)}
+                        >
                           <option value="post">Post</option>
                           <option value="get">Get</option>
                         </select>
@@ -324,20 +354,30 @@ class CreateForm extends Component {
                       Code
                     </label>
                     <div className="control field-body">
-                      <input
-                        onChange={e => {
-                          this.setState({
-                            formString: {
-                              ...this.state.formString,
-                              code: e.target.value
-                            }
-                          });
-                        }}
-                        defaultValue={this.state.code}
-                        className="input"
-                        type="text"
-                        placeholder="Code"
-                      />
+                      {this.props.match.params.code ? (
+                        <input
+                          disabled
+                          defaultValue={this.state.code}
+                          className="input"
+                          type="text"
+                          placeholder="Code"
+                        />
+                      ) : (
+                        <input
+                          onChange={e => {
+                            this.setState({
+                              formString: {
+                                ...this.state.formString,
+                                code: e.target.value
+                              }
+                            });
+                          }}
+                          defaultValue={this.state.code}
+                          className="input"
+                          type="text"
+                          placeholder="Code"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -348,6 +388,7 @@ class CreateForm extends Component {
                     </label>
                     <div className="control field-body">
                       <input
+                        value={this.state.formString.formulario.form.action}
                         onChange={e => {
                           this.setState({
                             formString: {
@@ -407,9 +448,7 @@ class CreateForm extends Component {
 function mapStateToProps(state) {
   return { forms: state.forms };
 }
-// export default CreateForm;
-
 export default connect(
   mapStateToProps,
-  { setForm }
+  { setForm, getForm }
 )(CreateForm);
