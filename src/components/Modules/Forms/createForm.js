@@ -66,6 +66,7 @@ class CreateForm extends Component {
               newItems.push(
                 <InputItem
                   key={ref}
+                  item={dat.input}
                   remove={that.removeInput}
                   idInput={index}
                   readItems={that.readFormItems}
@@ -73,6 +74,16 @@ class CreateForm extends Component {
               );
             }
             if (dat.select) {
+              var ref = parseInt(index + 1) + "-Input";
+              newItems.push(
+                <SelectItem
+                  key={ref}
+                  item={dat.select}
+                  remove={that.removeInput}
+                  idInput={index}
+                  readItems={that.readFormItems}
+                />
+              );
             }
           });
 

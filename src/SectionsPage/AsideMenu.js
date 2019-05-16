@@ -41,7 +41,11 @@ class Aside extends Component {
         <p className="menu-label">Administration </p>
         <ul className="menu-list">
           <li>
-            <ItemMenu text="Contacts" textIcon="fas fa-address-book" />
+            <ItemMenu
+              text="Forms"
+              link="/forms"
+              textIcon="fas fa-address-book"
+            />
           </li>
           <li>
             <ItemMenu text="Sections" textIcon="fab fa-microsoft" />

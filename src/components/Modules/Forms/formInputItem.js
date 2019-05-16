@@ -4,10 +4,14 @@ class InputItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      label: this.props.labelIn ? this.props.labelIn : "",
-      type: "text",
-      value: this.props.valueIn ? this.props.valueIn : "",
-      name: this.props.nameIn ? this.props.nameIn : ""
+      label: this.props.item ? this.props.item.label : "",
+      type: this.props.item ? this.props.item.type : "text",
+      value: this.props.item
+        ? this.props.item.value
+          ? this.props.item.value
+          : ""
+        : "",
+      name: this.props.item ? this.props.item.name : ""
     };
   }
   changeInputLabel(evt) {
@@ -41,7 +45,7 @@ class InputItem extends Component {
   render() {
     return (
       <div className="itemForm type-form card">
-        <div className="card-header">
+        <div className="card-header ">
           <div className="card-header-title ">INPUT-FORM</div>
           <div className="card-header-icon">
             <span className="icon has-text-danger">

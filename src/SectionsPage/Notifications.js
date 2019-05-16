@@ -33,7 +33,7 @@ class Notifications extends Component {
   deleteNotification(evt) {}
   render() {
     return (
-      <div className="wrapNotifications">
+      <div className="wrapNotifications top">
         <div className="content">
           {this.props.notifications.notifications && this.renderNotifications()}
         </div>

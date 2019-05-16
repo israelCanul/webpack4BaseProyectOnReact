@@ -4,9 +4,9 @@ class SelectItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      label: this.props.labelIn ? this.props.labelIn : "",
-      value: this.props.valueIn ? this.props.valueIn : "",
-      options: []
+      label: this.props.item ? this.props.item.label : "",
+      value: this.props.item ? this.props.item.value : "",
+      options: this.props.item ? this.props.item.options : []
     };
     this.AddOption = this.AddOption.bind(this);
     // this.changeOptionLabel = this.changeOptionLabel.bind(this);
@@ -76,21 +76,27 @@ class SelectItem extends Component {
     }, 100);
   }
   AddOption(evt) {
+    var that = this;
+    let id = [...Array(10)]
+      .map(i => (~~(Math.random() * 36)).toString(36))
+      .join("");
     this.setState({
       options: [
         ...this.state.options,
         {
+          id: id,
           Name:
             "default" +
             [...Array(3)]
               .map(i => (~~(Math.random() * 36)).toString(36))
               .join(""),
-          Value: [...Array(10)]
-            .map(i => (~~(Math.random() * 36)).toString(36))
-            .join("")
+          Value: id
         }
       ]
     });
+    setTimeout(() => {
+      that.props.readItems(this);
+    }, 100);
   }
   render() {
     var options = [];
@@ -103,7 +109,7 @@ class SelectItem extends Component {
         className = "";
       }
       options.push(
-        <tr className={className} key={option.Value + id}>
+        <tr className={className} key={option.id}>
           <td className="control">
             <input
               maxLength="15"
