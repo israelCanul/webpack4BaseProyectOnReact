@@ -1,7 +1,8 @@
-import { SET_FORM, GET_FORM } from "../actions/formActions.js";
+import { SET_FORM, GET_FORM, FETCH_FORM } from "../actions/formActions.js";
 
 const initialState = {
   form: null,
+  formList: [],
   peticion: { code: 0, result: "" }
 };
 
@@ -28,6 +29,14 @@ export const formReducer = (state = initialState, action) => {
         newState = {
           ...newState,
           form: action.payload
+        };
+      }
+      break;
+    case FETCH_FORM:
+      {
+        newState = {
+          ...newState,
+          formList: action.payload
         };
       }
       break;

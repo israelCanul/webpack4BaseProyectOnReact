@@ -1,5 +1,5 @@
 #GlobalLoaderContainer {
-  background-color: rgba(100, 100, 100, 0.3);
+  background-color: rgba(100, 100, 100, 0.8);
   position: fixed;
   top: 0px;
   bottom: 0px;
@@ -13,6 +13,7 @@
   align-items: center;
   transition: height #{$speed} ease-in-out;
   overflow: hidden;
+  color: white !important;
   &.open {
     height: 100%;
   }

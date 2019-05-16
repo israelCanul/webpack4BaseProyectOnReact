@@ -43,7 +43,7 @@ class Aside extends Component {
           <li>
             <ItemMenu
               text="Forms"
-              link="/forms"
+              link="/forms/formList"
               textIcon="fas fa-address-book"
             />
           </li>

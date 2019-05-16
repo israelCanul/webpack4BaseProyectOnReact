@@ -24,7 +24,7 @@ class GlobalLoader extends Component {
       <div id="GlobalLoaderContainer" className={` ${isOpen} `}>
         <div className="wrapContent">
           <div id="#element" ref={ref => (this.element = ref)} />
-          <p className="is-size-5 has-text-link has-text-centered">
+          <p className="is-size-5 has-text-white  has-text-centered">
             {this.props.loader.text}
           </p>
         </div>

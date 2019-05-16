@@ -4,6 +4,33 @@ import { SET_NOTIFICATION } from "./notificationsActions";
 
 export const SET_FORM = "SET_FORM";
 export const GET_FORM = "GET_FORM";
+export const FETCH_FORM = "FETCH_FORM";
+
+export const fetchForms = code => {
+  return async function(dispatch) {
+    var config = {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "multipart/form-data"
+      }
+    };
+    dispatch({
+      type: SET_LOADER,
+      payload: { play: true, text: "Fetching Forms" }
+    });
+
+    const response = await ApiRoyal.get("/forms")
+      .then(res => {
+        dispatch({ type: FETCH_FORM, payload: res.data });
+        setTimeout(() => {
+          dispatch({ type: SET_LOADER, payload: { play: false } });
+        }, 1000);
+      })
+      .catch(err => {
+        dispatch({ type: SET_LOADER, payload: { play: false } });
+      });
+  };
+};
 
 export const setForm = obj => {
   return async function(dispatch) {
@@ -55,10 +82,10 @@ export const getForm = code => {
       .then(res => {
         if (res.data.form) {
           dispatch({ type: GET_FORM, payload: res.data });
-          dispatch({
-            type: SET_NOTIFICATION,
-            payload: { code: 1, description: "Successfully" }
-          });
+          // dispatch({
+          //   type: SET_NOTIFICATION,
+          //   payload: { code: 1, description: "Successfully" }
+          // });
         } else {
           dispatch({
             type: SET_NOTIFICATION,

@@ -1,6 +1,7 @@
 import Home from "./components/Home";
 import About from "./components/Home/About";
 import Forms from "./components/Modules/Forms";
+import FormList from "./components/Modules/Forms/FormList";
 import CreateForms from "./components/Modules/Forms/createForm.js";
 
 const Routes = [
@@ -17,11 +18,15 @@ const Routes = [
     component: Forms,
     routes: [
       {
+        path: "/forms/formList",
+        component: FormList
+      },
+      {
         path: "/forms/createForm",
         component: CreateForms
       },
       {
-        path: "/forms/updateForm/:code",
+        path: "/forms/Form/:code",
         component: CreateForms
       }
     ]
